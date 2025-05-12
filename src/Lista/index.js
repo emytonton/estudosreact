@@ -7,7 +7,61 @@ class Lista extends Component{
         super(props);
         this.state ={
             feed: this.props.data
+
+        
         }
+
+        this.carregaTcone = this.carregaTcone.bind(this);
+        this.mostraLikes = this.mostraLikes.bind(this);
+        this.like = this.like.bind(this);
+    }
+
+    carregaTcone(likeada){
+        return likeada ?  require('../img/likeada.png') : 
+                          require('../img/like.png')
+    }
+    
+
+    like(){
+        let feed = this.state.feed;
+
+        if(feed.likeada === true){
+            this.setState({
+                feed:{
+                    ...feed, // to pegando tudo que tem no feed
+                    likeada:false,
+                    likers: feed.likers - 1
+                }
+            });
+        }else{
+            this.setState({
+                feed:{
+                    ...feed,
+                    likeada:true,
+                    likers: feed.likers + 1
+                }
+            });
+
+        }
+    }
+
+
+
+
+    mostraLikes(likers){
+        let feed = this.state.feed;
+
+        if(feed.likers <= 0){
+            return;
+        }
+
+
+        return(
+            <Text style = {styles.likes}>
+                {feed.likers} {feed.likers > 1 ? 'curtidas' : 'curtida'}
+            </Text>
+
+        );
     }
 
 
@@ -32,9 +86,9 @@ class Lista extends Component{
             />
 
             <View style = {styles.areaBtn}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.like}>
                     <Image
-                    source = {require('../img/like.png')}
+                    source = {this.carregaTcone(this.state.feed.likeada)}
                     style ={styles.iconelike}
                     />
                 </TouchableOpacity>
@@ -48,6 +102,9 @@ class Lista extends Component{
                 </TouchableOpacity>
 
             </View>
+
+            {this.mostraLikes(this.state.feed.likers)}
+
 
 
             <View style= {styles.viewRodape}>
@@ -118,6 +175,11 @@ nomeRodape:{
     fontWeight: 'bold',
     color: '#000',
     paddingLeft:5
+},
+likes:{
+    fontWeight: 'bold',
+    marginLeft: 5,
+
 }
 
 });
