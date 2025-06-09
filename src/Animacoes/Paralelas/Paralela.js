@@ -9,15 +9,7 @@ export default function App(){
 
   useEffect( () => {
 
-    Animated.sequence([
-
-      Animated.timing(opacidade,{
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: false
-      }),
-      
-      Animated.parallel([
+    Animated.parallel([
 
       Animated.timing(larguraAnimada,{
         toValue:300,
@@ -30,8 +22,6 @@ export default function App(){
         useNativeDriver: false
     }),
 
-    ])
-    
     ]).start();
 
 
