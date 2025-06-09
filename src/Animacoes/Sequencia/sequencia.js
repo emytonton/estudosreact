@@ -5,7 +5,6 @@ export default function App(){
 
   const larguraAnimada = useRef(new Animated.Value(150)).current;
   const alturaAnimada = useRef(new Animated.Value(50)).current;
-  const opacidade = useRef(new Animated.Value(1)).current;
 
   useEffect( () => {
 
@@ -20,13 +19,7 @@ export default function App(){
         toValue: 200,
         duration: 2000,
         useNativeDriver: false
-    }),
-      Animated.timing(opacidade,{
-        toValue: 0,
-        duration: 1000,
-        useNativeDriver: false
-      })
-
+    })
 
     ]).start();
 
@@ -41,8 +34,7 @@ export default function App(){
         width: larguraAnimada,
         height: alturaAnimada,
         backgroundColor: '#4169e1',
-        justifyContent: 'center',
-        opacity: opacidade
+        justifyContent: 'center'
       }}>
         <Text style = {{ textAlign: 'center', fontSize: 22,color: '#FFF' }}>Carregando...</Text>
       
